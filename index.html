@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+</head>
+<body style="background-color: gray; text-align: center;">
+    <canvas id="clock" width="500" height="500"></canvas>
+    <div style="background-color: white; padding: 10px; width: fit-content; margin: auto">
+        <div id="clock-face">Tarcza zegara: 
+            <input type="number" min="0" max="255" placeholder="Red" value="255">
+            <input type="number" min="0" max="255" placeholder="Green" value="255">
+            <input type="number" min="0" max="255" placeholder="Blue" value="255">
+        </div>
+        <div id="clock-frame">Ramka zegara: 
+            <input type="number" min="0" max="255" placeholder="Red" value="0">
+            <input type="number" min="0" max="255" placeholder="Green" value="0">
+            <input type="number" min="0" max="255" placeholder="Blue" value="0">
+        </div>
+        <div id="background">Tło: 
+            <input type="number" min="0" max="255" placeholder="Red" value="40">
+            <input type="number" min="0" max="255" placeholder="Green" value="40">
+            <input type="number" min="0" max="255" placeholder="Blue" value="40">
+        </div>
+        <div>Rozmiar zegara:
+            <input type="range" value="240" min="100" max="250" id="clock-size">
+        </div>
+    </div>
+    <script src="clock.js"></script>
+</body>
+</html>
