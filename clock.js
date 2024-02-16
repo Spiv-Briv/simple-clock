@@ -12,7 +12,6 @@ ctx.font = "20px serif";
 background();
 clockFace();
 
-
 const startDate = new Date();
 textArrow(startDate.getHours(), 12, 150, 4);
 textArrow(startDate.getMinutes(), 60, 175, 5);
@@ -30,10 +29,21 @@ setInterval(() => {
     clockFace();
 
     const date = new Date();
-    textArrow(date.getHours(), 12, 150, 4);
-    textArrow(date.getMinutes(), 60, 175, 5);
-    textArrow(date.getSeconds(), 60, 200, 6);
-}, 1000);
+    if(document.getElementById('partial-arrow').checked) {
+        // partial text arrows
+        funkyTextArrow(date.getSeconds(), 60, 200, 6, date.getMilliseconds()/1000);
+        funkyTextArrow(date.getMinutes(), 60, 175, 5, date.getSeconds()/60);
+        funkyTextArrow(date.getHours(), 12, 150, 4, date.getMinutes()/60);
+    }
+    else {
+        // Regular text arrows
+        textArrow(date.getHours(), 12, 150, 4);
+        textArrow(date.getMinutes(), 60, 175, 5);
+        textArrow(date.getSeconds(), 60, 200, 6);
+    }
+
+    
+}, 100);
 
 function textArrow(value, ticks, length, size) {
     const clockSize = document.getElementById('clock-size');
@@ -45,6 +55,24 @@ function textArrow(value, ticks, length, size) {
             break;
         }
         ctx.fillText(value, Math.sin(angle) * (space * i), -Math.cos(angle) * (space * i));
+    }
+}
+
+function funkyTextArrow(value, ticks, length, size, part) {
+    const clockSize = document.getElementById('clock-size');
+    const angleModifier = (Math.PI * (360 / ticks)) / 180;
+    const angle = value * angleModifier;
+    const space = length / size;
+    for (let i = 1; i <= size; i++) {
+        if(parseInt(clockSize.value)<parseInt(space*(i+1))) {
+            break;
+        }
+        if(parseFloat(i*space/length) < parseFloat(part)) {
+            ctx.fillText(value+1, Math.sin(angle+angleModifier) * (space * i), -Math.cos(angle+angleModifier) * (space * i));
+        }
+        else {
+            ctx.fillText(value, Math.sin(angle) * (space * i), -Math.cos(angle) * (space * i));
+        }
     }
 }
 
